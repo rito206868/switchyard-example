@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns:camel="urn:switchyard-component-camel:config:2.0" xmlns:quartz="urn:switchyard-component-camel-quartz:config:2.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:sy="urn:switchyard-config:switchyard:2.0" name="switchyard-example" targetNamespace="urn:com.example.switchyard:switchyard-example:1.0">
+  <sca:composite name="switchyard-example" targetNamespace="urn:com.example.switchyard:switchyard-example:1.0">
+    <sca:component name="CamelServiceRoute">
+      <camel:implementation.camel>
+        <camel:java class="com.example.switchyard.switchyard_example.CamelServiceRoute"/>
+      </camel:implementation.camel>
+      <sca:service name="CamelRoute">
+        <sca:interface.java interface="com.example.switchyard.switchyard_example.CamelRoute"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="CamelRoute" promote="CamelServiceRoute/CamelRoute">
+      <sca:interface.java interface="com.example.switchyard.switchyard_example.CamelRoute"/>
+      <quartz:binding.quartz name="CamelRoute1">
+        <quartz:name>CamelRoute1</quartz:name>
+        <quartz:cron>0/5* * * * ?</quartz:cron>
+      </quartz:binding.quartz>
+    </sca:service>
+  </sca:composite>
+</sy:switchyard>
